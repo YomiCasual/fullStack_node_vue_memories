@@ -16,8 +16,23 @@ export const getPosts = async (req, res) => {
     }
 };
 
+export const getSinglePost = async (req, res) => {
+    const { id }= req.params
+	try {
+        let Post = await PostModel.findById(id)
+        res.status(200).send({
+            isSucessful: true,
+            data: Post
+        })
+    } catch (error) {
+        res.status(400).send({
+            isSucessful: false,
+            message: error
+        })
+    }
+};
+
 export const createPosts = async (req, res) => {
-    console.log(req.body)
     const data = req.body
     const Post = new PostModel(data)
     try {
@@ -52,5 +67,31 @@ export const deletePost = async (req, res) => {
         })
     }
     // res.send("Post Created")
+}
+
+export const updatePost = async (req, res ) => {
+    const id = req.params.id
+    const data = req.body
+    const options = () => {
+        let option = {}
+        for (const d in {...data} ) {
+            option[d] = 1
+        }
+
+       return option
+    }
+    console.log(options())
+    try {
+        let update = await PostModel.findByIdAndUpdate(id, { $set: { ...data }}, { new: true}).select(options())
+        res.status(202).json({
+            isSucessful: true,
+            data: update
+        })
+    } catch (error) {
+        res.status(404).json({
+            isSucessful: false,
+            message: error
+        })
+    }
 }
 
