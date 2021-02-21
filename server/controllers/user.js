@@ -78,3 +78,13 @@ export const generateToken =  (req, res) => {
         });
     });
 };
+
+export const logOut = (req, res) => {
+    // console.log(req.ueser)
+    refreshTokens.filter(token => token !== req.body.token)
+    res.status(200).json({
+        isSuccessful: true,
+        data: req.user,
+        tokens: refreshTokens
+    })
+}
