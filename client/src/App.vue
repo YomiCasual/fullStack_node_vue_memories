@@ -1,25 +1,27 @@
 <template>
-  <div>
-    <img alt="Vue logo" src="./assets/logo.png">
+  <div class="container">
+    <Posts />
    <form-field></form-field>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
-import { mapGetters, useStore } from 'vuex'
+import { computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 
 import FormField from './components/Form/FormField.vue'
+import Posts from './components/Posts/Posts'
 
 
 export default {
   name: 'App',
   components: {
-    FormField
+    FormField,
+    Posts
   },
   setup() {
     const store = useStore()
-    console.log(store)
+
 
     return {
       state: computed(() => store.state.posts),
@@ -30,12 +32,32 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif
+}
+
+.btn {
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+
+  &:focus, &:active{
+    border: none;
+    outline: none
+  }
+
+}
+
+
+.container {
+  padding: 2rem 4rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 2rem;
+  grid-template-columns: minmax(0, 1fr) 300px;
 }
 </style>

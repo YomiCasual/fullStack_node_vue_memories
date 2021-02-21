@@ -80,7 +80,6 @@ export const updatePost = async (req, res ) => {
 
        return option
     }
-    console.log(options())
     try {
         let update = await PostModel.findByIdAndUpdate(id, { $set: { ...data }}, { new: true}).select(options())
         res.status(202).json({
