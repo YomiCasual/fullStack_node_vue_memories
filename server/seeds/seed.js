@@ -4,8 +4,9 @@ import bcrypt from 'bcryptjs';
 
 import connection from '../db/index.js';
 import userModel from '../models/user.js';
+import { salt } from '../config/pass.js'
 
-var salt = bcrypt.genSaltSync(10);
+
 
 const app = express();
 

@@ -3,7 +3,7 @@ import PostModel from '../models/post.js'
 
 export const getPosts = async (req, res) => {
 	try {
-        let Posts = await PostModel.find({})
+        let Posts = await PostModel.find({}).populate('author', ['firstName', 'lastName'])
         res.status(200).send({
             isSucessful: true,
             data: Posts
@@ -33,7 +33,9 @@ export const getSinglePost = async (req, res) => {
 };
 
 export const createPosts = async (req, res) => {
-    const data = req.body
+    
+    const author = req.user._id
+    const data = {...req.body, author}
     const Post = new PostModel(data)
     try {
         let request = await Post.save()

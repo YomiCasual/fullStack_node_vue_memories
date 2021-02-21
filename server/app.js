@@ -3,6 +3,7 @@ import cors from 'cors';
 import connection from './db/index.js';
 
 import posts from './routes/posts.js';
+import user from './routes/user.js'
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json({limit: '50mb'}));
 connection();
 
 app.use('/posts', posts);
+app.use('/user', user)
 
 const PORT = 5000;
 
